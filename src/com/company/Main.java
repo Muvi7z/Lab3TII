@@ -106,6 +106,10 @@ public class Main {
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
                             break;
                         }
+                        else {
+                            System.out.println("Жанр игры неизвестен!");
+                            break;
+                        }
                     case Simulators:
                         answer =  writeAn("Имитация управления автомобилем?");
                         if(answer.equals("y")|| answer.equals("yes")){
@@ -119,7 +123,16 @@ public class Main {
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
                             break;
                         }
-                        break;
+                        answer =  writeAn("Имитация процесса строительства?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Simulators,"3d","Симулятор жизни"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        else {
+                            System.out.println("Жанр игры неизвестен!");
+                            break;
+                        }
                     case Strategy:
                         answer =  writeAn("Игроки выполняют действия в реальном времени?");
                         if(answer.equals("y")|| answer.equals("yes")){
@@ -133,6 +146,10 @@ public class Main {
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
                             break;
                         }
+                        else {
+                            System.out.println("Жанр игры неизвестен!");
+                            break;
+                        }
 
                     case Sports:
                         answer =  writeAn("Игрок должен участвовать в гонках?");
@@ -141,11 +158,13 @@ public class Main {
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
                             break;
                         }
-                        else {
+                        else{
                             genreList.add(new Genre(Genre.Type.Sports,"3d","Симулятор"));
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+
                         }
-                        break;
+
                     case RPG:
                         answer =  writeAn("Игрок должен сражаться с несколькими врагами, повышая уровень?");
                         if(answer.equals("y")|| answer.equals("yes")){
@@ -157,6 +176,10 @@ public class Main {
                         if(answer.equals("y")|| answer.equals("yes")){
                             genreList.add(new Genre(Genre.Type.RPG,"3d","ММО-рпг"));
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        else {
+                            System.out.println("Жанр игры неизвестен!");
                             break;
                         }
                     case Sandbox:
@@ -181,6 +204,8 @@ public class Main {
                             System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
                             break;
                         }
+                    default:
+                        System.out.println("Жанр игры неизвестен!");
                 }
                 break;
             }
