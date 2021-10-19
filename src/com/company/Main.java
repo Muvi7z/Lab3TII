@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -41,42 +42,147 @@ public class Main {
                 return question;
             }
         }
+        public String getGenreName(){
+            return this.graphics+ " " + this.genre.name() + " " + this.subGenre;
+        }
 
     }
-    public static void main(String[] args) {
-        genreList.add(new Genre(Genre.Type.Action,"3d","Шутеры от первого лица","Игрок должен устранить противника с помощью оружия?"));
-        genreList.add(new Genre(Genre.Type.Action,"3d","Шутеры от третьего лица","Видите ли вы главного героя?"));
-        genreList.add(new Genre(Genre.Type.Action,"3d","Стелс","Игрок должен незаметно избегать противников?"));
-        genreList.add(new Genre(Genre.Type.Action,"3d","Приключения"));
-        genreList.add(new Genre(Genre.Type.Simulators,"3d","Авто-симуляторы"));
-        genreList.add(new Genre(Genre.Type.Simulators,"3d","Авиа-симуляторы"));
-        genreList.add(new Genre(Genre.Type.Simulators,"3d","Симулятор строительства"));
-        genreList.add(new Genre(Genre.Type.Simulators,"3d","Космический симулятор"));
-        genreList.add(new Genre(Genre.Type.Strategy,"3d","Реального времени"));
-        genreList.add(new Genre(Genre.Type.Strategy,"3d","Товер дефенц"));
-        genreList.add(new Genre(Genre.Type.Sports,"3d","Симулятор"));
-        genreList.add(new Genre(Genre.Type.Sports,"3d","Гоночные"));
-        genreList.add(new Genre(Genre.Type.RPG,"3d","Экшен-рпг"));
-        genreList.add(new Genre(Genre.Type.RPG,"3d","ММО-рпг"));
-        genreList.add(new Genre(Genre.Type.Sandbox,"3d","Крафтинг"));
-        genreList.add(new Genre(Genre.Type.Quests,"2d","Текстовые"));
-        genreList.add(new Genre(Genre.Type.Quests,"2d","Новелла"));
-        genreList.add(new Genre(Genre.Type.Quests,"2d","Графические"));
-        genreList.add(new Genre(Genre.Type.Quests,"2d","Головоломки"));
-        genreList.add(new Genre(Genre.Type.Action,"2d","Файтинги"));
-        genreList.add(new Genre(Genre.Type.Action,"2d","Платформер"));
-        genreList.add(new Genre(Genre.Type.Strategy,"2d","Пошаговые"));
-        genreList.add(new Genre(Genre.Type.Strategy,"2d","Экономические"));
+    public static String  writeAn(String ques){
         Scanner in = new Scanner(System.in);
-        final String[] answer = {""};
+        System.out.println(ques);
+        String answer="";
+        do {
+            answer = in.nextLine();
+        }
+        while (!answer.equals("y") && !answer.equals("n") && !answer.equals("yes") && !answer.equals("not"));
+        return answer;
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String answer = "";
         for(Genre.Type genre: Genre.Type.values()){
             System.out.println(genre.question);
             do {
-                answer[0] = in.nextLine();
+                answer = in.nextLine();
             }
-            while (!answer[0].equals("y") && !answer[0].equals("n") && !answer[0].equals("yes") && !answer[0].equals("not"));
-            if(answer[0].equals("y")|| answer[0].equals("yes")){
-                genreList.stream().map(x -> x.genre==genre).collect(Collectors.toList());
+            while (!answer.equals("y") && !answer.equals("n") && !answer.equals("yes") && !answer.equals("not"));
+            if(answer.equals("y")|| answer.equals("yes")){
+                switch (genre) {
+                    case Action:
+                       answer =  writeAn("Игрок должен устранить противника с помощью оружия?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            answer =  writeAn("Видите ли вы главного героя?");
+                            if(answer.equals("y")|| answer.equals("yes")){
+                                genreList.add(new Genre(Genre.Type.Action,"3d","Шутеры от первого лица","Игрок должен устранить противника с помощью оружия?"));
+                                System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                                break;
+                            }
+                            else {
+                                genreList.add(new Genre(Genre.Type.Action,"3d","Шутеры от третьего лица","Видите ли вы главного героя?"));
+                                System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                                break;
+                            }
+                        }
+                        else {
+                            answer =  writeAn("Игрок должен незаметно избегать противников?");
+                            if(answer.equals("y")|| answer.equals("yes")){
+                                genreList.add(new Genre(Genre.Type.Action,"3d","Стелс","Игрок должен незаметно избегать противников?"));
+                                System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                                break;
+                            }
+                            else {
+                                answer =  writeAn("В игре имитируется рукопашный бой?");
+                                if(answer.equals("y")|| answer.equals("yes")){
+                                    genreList.add(new Genre(Genre.Type.Action,"2d","Файтинги"));
+                                    System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                                    break;
+                                }
+                            }
+                        }
+                        answer =  writeAn("Игрок должен передвигаться по платформам?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Action,"2d","Платформер"));
+
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                    case Simulators:
+                        answer =  writeAn("Имитация управления автомобилем?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Simulators,"3d","Авто-симуляторы"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        answer =  writeAn("Имитация процесса строительства?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Simulators,"3d","Симулятор строительства"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        break;
+                    case Strategy:
+                        answer =  writeAn("Игроки выполняют действия в реальном времени?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Strategy,"3d","Реального времени"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        answer =  writeAn("Игрок должен расправиться с наступающими врагами с помощью различных построек?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Strategy,"3d","Товер дефенц"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+
+                    case Sports:
+                        answer =  writeAn("Игрок должен участвовать в гонках?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Sports,"3d","Гоночные"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        else {
+                            genreList.add(new Genre(Genre.Type.Sports,"3d","Симулятор"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                        }
+                        break;
+                    case RPG:
+                        answer =  writeAn("Игрок должен сражаться с несколькими врагами, повышая уровень?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.RPG,"3d","Экшен-рпг"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        answer =  writeAn("В игре множество игроков взаимодействуют друг с другом?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.RPG,"3d","ММО-рпг"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                    case Sandbox:
+                        genreList.add(new Genre(Genre.Type.Sandbox,"3d","Крафтинг"));
+                        System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                        break;
+                    case Quests:
+                        answer =  writeAn("В игре необходимо вводить текстовые команды для управления игроком?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Quests,"2d","Текстовые"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        answer =  writeAn("В игре необходимо решать логические задачи или загадки?");
+                        if(answer.equals("y")|| answer.equals("yes")){
+                            genreList.add(new Genre(Genre.Type.Quests,"2d","Головоломки"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                        else {
+                            genreList.add(new Genre(Genre.Type.Quests,"2d","Графические"));
+                            System.out.println("Жанр игры:" + genreList.get(0).getGenreName());
+                            break;
+                        }
+                }
+                break;
             }
         }
 
